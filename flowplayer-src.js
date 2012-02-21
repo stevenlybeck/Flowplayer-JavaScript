@@ -670,6 +670,7 @@ function Player(wrapper, params, conf) {
 		},
 
 		loadPlugin: function(name, url, props, fn) {
+			var cbs = {};
 
 			// properties not supplied
 			if (typeof props == 'function') {
@@ -677,14 +678,22 @@ function Player(wrapper, params, conf) {
 				props = {};
 			}
 
+			// if the config has any functions as a value, presume they're callbacks
+			// and move them over to the callbacks object that we'll pass to the Plugin constructor
+			each(props, function(key, val) {
+				if (typeof val == 'function') {
+					cbs[key] = val;
+					delete props[key];
+				}
+			});
+
 			// if fn not given, make a fake id so that plugin's onUpdate get's fired
 			var fnId = fn ? makeId() : "_";
 			self._api().fp_loadPlugin(name, url, props, fnId);
 
 			// create new plugin
-			var arg = {};
-			arg[fnId] = fn;
-			var p = new Plugin(name, null, self, arg);
+			cbs[fnId] = fn;
+			var p = new Plugin(name, null, self, cbs);
 			plugins[name] = p;
 			return p;
 		},
