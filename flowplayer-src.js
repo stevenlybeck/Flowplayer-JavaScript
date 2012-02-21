@@ -617,6 +617,11 @@ function Player(wrapper, params, conf) {
 			return commonClip;
 		},
 
+		setCommonClip: function(clip) {
+			commonClip = new Clip(clip, -1, self);
+			return self;
+		},
+
 		getPlaylist: function() {
 			return playlist;
 		},
@@ -975,7 +980,7 @@ function Player(wrapper, params, conf) {
 			conf.clip.url = wrapper.getAttribute("href", 2);
 		}
 
-		commonClip = new Clip(conf.clip, -1, self);
+		self.setCommonClip(conf.clip);
 
 		// playlist
 		conf.playlist = conf.playlist || [conf.clip];
