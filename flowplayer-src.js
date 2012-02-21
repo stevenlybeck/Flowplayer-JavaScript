@@ -689,7 +689,7 @@ function Player(wrapper, params, conf) {
 
 			// if fn not given, make a fake id so that plugin's onUpdate get's fired
 			var fnId = fn ? makeId() : "_";
-			self._api().fp_loadPlugin(name, url, props, fnId);
+			self._api().fp_loadPlugin(name, url, JSON.parse(JSON.stringify(props)), fnId);
 
 			// create new plugin
 			cbs[fnId] = fn;
