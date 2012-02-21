@@ -166,7 +166,7 @@
 		extend(this, json, true);
 
 		// event handling
-		each(("Begin*,Start,Pause*,Resume*,Seek*,Stop*,Finish*,LastSecond,Update,BufferFull,BufferEmpty,BufferStop").split(","),
+		each(("Begin*,Start,Pause*,Resume*,Seek*,Stop*,Finish*,LastSecond,Update,BufferFull,BufferEmpty,BufferStop,MetaData").split(","),
 			function() {
 
 			var evt = "on" + this;
