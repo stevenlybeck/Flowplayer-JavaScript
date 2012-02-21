@@ -238,6 +238,8 @@
 
 			// internal event for performing clip tasks. should be made private someday
 			_fireEvent: function(evt, arg1, arg2, target) {
+				window.allEvents && window.allEvents.apply(this, arguments);
+
 				if (evt == 'onLoad') {
 					each(cuepoints, function(key, val) {
 						if (val[0]) {
@@ -424,6 +426,7 @@
 
 			// internal method. should be made private some day
          _fireEvent: function(evt, arg, arg2) {
+			window.allEvents && window.allEvents.apply(this, arguments);
 
             // update plugins properties & methods
             if (evt == 'onUpdate') {
@@ -812,7 +815,7 @@ function Player(wrapper, params, conf) {
 // {{{ public method: _fireEvent
 
 	self._fireEvent = function(a) {
-
+		window.allEvents && window.allEvents.apply(this, arguments);
 		if (typeof a == 'string') { a = [a]; }
 
 		var evt = a[0], arg0 = a[1], arg1 = a[2], arg2 = a[3], i = 0;
